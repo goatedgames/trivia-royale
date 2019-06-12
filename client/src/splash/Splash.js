@@ -17,7 +17,8 @@ class Splash extends React.Component {
   }
 
   handleSubmit(e) {
-    alert(`Submitted ${this.state.username}`);
+    this.props.onSubmit(this.state.username);
+    e.preventDefault();
   }
 
   render() {

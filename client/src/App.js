@@ -2,10 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Splash from './splash/Splash';
+import Game from './Game'
 
 function App() {
-  return <Splash />;
+  return <Game />;
   // return (
   //   <div className="App">
   //     <header className="App-header">
