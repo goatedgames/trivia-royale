@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../App.css'
 
 class Splash extends React.Component {
@@ -17,7 +18,7 @@ class Splash extends React.Component {
   }
 
   handleSubmit(e) {
-    this.props.onSubmit(this.state.username);
+    this.props.onEnter(this.state.username);
     e.preventDefault();
   }
 
@@ -37,5 +38,9 @@ class Splash extends React.Component {
     );
   }
 }
+
+Splash.propTypes = {
+  onEnter: PropTypes.func
+};
 
 export default Splash;

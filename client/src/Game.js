@@ -32,7 +32,7 @@ class Game extends React.Component {
   }
 
   render() {
-    return <Splash onSubmit={this.onUsernameSubmit}/>;
+    return <Splash onEnter={this.onUsernameSubmit}/>;
   }
 }
 

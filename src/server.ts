@@ -1,21 +1,23 @@
-const WebSocket = require('ws')
-const express = require('express')
-const path = require('path')
-const uuid = require('uuid/v1')
+import 'source-map-support/register'
+
+import WebSocket = require('ws')
+import express = require('express')
+import uuid = require('uuid/v1')
 
 const questions = require('./cities.json').questionSet
 
 const GameState = {
   LOBBY: 1,
-  BATTLE: 2
+  BATTLE: 2,
+  WAIT: 3
 }
 
-function send(socket, eventName, payload) {
+function send(socket: any, eventName: string, payload: any) {
   const merged = { eventName: eventName, ...payload}
   socket.send(JSON.stringify(merged))
 }
 
-function shuffle(array) {
+function shuffle(array: Array<any>) {
   let counter = array.length;
 
   while (counter > 0) {
@@ -32,7 +34,17 @@ function shuffle(array) {
 }
 
 class Game {
-  constructor(questions, duration) {
+  players: Map<string, any>
+  state: any
+  roundNumber: number
+  roundStart: number
+  waitStart: number
+  questions: Array<any>
+  duration: number
+  answers: any
+  matches: any
+
+  constructor(questions: any, duration: number) {
     this.players = new Map()
     this.state = GameState.LOBBY
     this.roundNumber = 0
@@ -41,25 +53,23 @@ class Game {
     this.questions = questions
     shuffle(this.questions)
     this.duration = duration
-    this.answers = null
-    this.matches = null
   }
 
   get currentQ() {
     return this.questions[this.roundNumber]
   }
 
-  addPlayer(player) {
+  addPlayer(player: Player) {
     this.players.set(player.id, player)
   }
 
-  broadcast(eventName, data) {
+  broadcast(eventName: string, data: any) {
     for (const p of this.players.values()) {
       send(p.socket, eventName, data)
     }
   }
 
-  handleAnswerRes(id, idx) {
+  handleAnswerRes(id: string, idx: number) {
     this.answers.set(id, idx)
     const p = this.players.get(id)
     if (p === null) return
@@ -181,7 +191,12 @@ class Game {
 }
 
 class Match {
-  constructor(q, p1, p2) {
+  q: any;
+  p1: Player;
+  p2: Player;
+  solo: boolean;
+
+  constructor(q: any, p1: Player, p2: Player | null) {
     this.q = q
     this.p1 = p1
     this.p2 = p2
@@ -191,7 +206,7 @@ class Match {
     if (!this.solo) this.p2.match = this
   }
 
-  startRound(game) {
+  startRound() {
     const q = {
       question: this.q.question,
       choices: this.q.choices,
@@ -225,7 +240,13 @@ class Match {
 }
 
 class Player {
-  constructor(socket, username, id) {
+  match: Match | null
+  socket: any
+  lives: number
+  username: string
+  id: string;
+
+  constructor(socket: any, username: string, id: string) {
     this.socket = socket
     this.username = username
     this.id = id
@@ -239,14 +260,14 @@ class Player {
 }
 
 const app = express()
-app.use(express.static('../cairo'))
+// app.use(express.static('../cairo'))
 
-const adminApp = express()
-adminApp.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'))
-})
-adminApp.use(express.static(path.join(__dirname, 'admin')))
-adminApp.listen(5000)
+// const adminApp = express()
+// adminApp.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'admin.html'))
+// })
+// adminApp.use(express.static(path.join(__dirname, 'admin')))
+// adminApp.listen(5000)
 
 const wss = new WebSocket.Server({ server: app.listen(8080) })
 // const questions = [
@@ -272,7 +293,7 @@ const game = new Game(questions, 20000)
 wss.on('connection', socket => {
   socket.on('message', message => {
     // console.log(`Message from a client: ${message}`)
-    const data = JSON.parse(message)
+    const data = JSON.parse(message.toString())
     switch (data.eventName) {
       case 'user-join':
         const id = uuid()
