@@ -12,8 +12,8 @@ const GameState = {
   WAIT: 3
 }
 
-function send(socket: any, eventName: string, payload: any) {
-  const merged = { eventName: eventName, ...payload}
+function send(socket: WebSocket, eventName: string, payload: any) {
+  const merged = { eventName: eventName, ...payload }
   socket.send(JSON.stringify(merged))
 }
 
@@ -21,20 +21,18 @@ function shuffle(array: Array<any>) {
   let counter = array.length;
 
   while (counter > 0) {
-      let index = Math.floor(Math.random() * counter);
+    const index = Math.floor(Math.random() * counter)
 
-      counter--;
+    counter--
 
-      let temp = array[counter];
-      array[counter] = array[index];
-      array[index] = temp;
+    const temp = array[counter]
+    array[counter] = array[index]
+    array[index] = temp
   }
-
-  return array;
 }
 
 class Game {
-  players: Map<string, any>
+  players: Map<string, Player>
   state: any
   roundNumber: number
   roundStart: number
@@ -93,11 +91,11 @@ class Game {
           send(other.socket, 'elim', msg)
           this.players.delete(other.id)
         } else {
-          send(other.socket, 'round-end', { msg: 'You lost the battle against: ' + p.username})
+          send(other.socket, 'round-end', { msg: 'You lost the battle against: ' + p.username })
         }
-        send(p.socket, 'round-end', { msg: 'You won your battle against: ' + other.username})
+        send(p.socket, 'round-end', { msg: 'You won your battle against: ' + other.username })
       } else {
-        send(p.socket, 'round-end', { msg: 'You won your battle, but not the war'})
+        send(p.socket, 'round-end', { msg: 'You won your battle, but not the war' })
       }
     }
   }
@@ -191,10 +189,10 @@ class Game {
 }
 
 class Match {
-  q: any;
-  p1: Player;
-  p2: Player;
-  solo: boolean;
+  q: any
+  p1: Player
+  p2: Player
+  solo: boolean
 
   constructor(q: any, p1: Player, p2: Player | null) {
     this.q = q
@@ -241,12 +239,12 @@ class Match {
 
 class Player {
   match: Match | null
-  socket: any
+  socket: WebSocket
   lives: number
   username: string
-  id: string;
+  id: string
 
-  constructor(socket: any, username: string, id: string) {
+  constructor(socket: WebSocket, username: string, id: string) {
     this.socket = socket
     this.username = username
     this.id = id
