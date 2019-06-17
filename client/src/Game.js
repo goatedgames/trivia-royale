@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Splash from './splash/Splash';
+import {Splash, Lobby, Battle, Wait, Victory, Lost} from './screens/index';
 
 const wsURL = 'ws://localhost:8080';
 
@@ -33,6 +33,11 @@ class Game extends React.Component {
 
   render() {
     return <Splash onEnter={this.onUsernameSubmit}/>;
+    // return <Lobby />;
+    // return <Battle />;
+    // return <Wait />;
+    // return <Victory />;
+    // return <Lost />;
   }
 }
 
