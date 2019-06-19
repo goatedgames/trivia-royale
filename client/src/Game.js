@@ -2,11 +2,9 @@ import React from 'react';
 
 import {Splash, Lobby, Battle, Wait, Victory, Lost} from './screens/index';
 
-const wsURL = 'ws://localhost:8080';
+import WS from './net';
 
 class Game extends React.Component {
-  ws = new WebSocket(wsURL);
-  
   constructor(props) {
     super(props);
 
@@ -14,21 +12,13 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    this.ws.onopen = () => {
-      console.log('Opened WebSocket');
-    }
-
-    this.ws.onclose = () => {
-      console.log('Closed WebSocket');
-    }
+    WS.onEvent('uuid-res', (data) => {
+      console.log('My id: ', data.id);
+    });
   }
 
   onUsernameSubmit(username) {
-    const payload = {
-      eventName: 'user-join',
-      username: username
-    };
-    this.ws.send(JSON.stringify(payload));
+    WS.send('user-join', { username: username });
   }
 
   render() {

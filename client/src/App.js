@@ -4,6 +4,9 @@ import './App.css';
 
 import Game from './Game'
 
+import WS from './net';
+WS.init('ws://localhost:8080');
+
 function App() {
   return <Game />;
   // return (
