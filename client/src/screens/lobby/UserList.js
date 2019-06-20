@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const UserList = ({ usernames }) => (
   <ul>
-    {usernames.map(name => (
-      <li>{name}</li>
+    {usernames.map((name, index) => (
+      <li key={index}>{name}</li>
     ))}
   </ul>
 );

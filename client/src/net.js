@@ -1,6 +1,7 @@
 export default class WS {
   static init(url) {
     this.handlers = {};
+    this.key = '';
     this.ws = new WebSocket(url);
     this.ws.onopen = () => {
       console.log('WebSocket opened.');
@@ -17,6 +18,10 @@ export default class WS {
         }
       }
     }
+
+    this.onEvent('uuid-res', (data) => {
+      this.key = data.id;
+    });
   }
 
   static onEvent(eventName, handler) {
@@ -29,7 +34,9 @@ export default class WS {
 
   static send(eventName, payload) {
     this.ws.send(JSON.stringify({
-      eventName: eventName, ...payload
+      eventName: eventName, 
+      user: { id: this.key },
+      ...payload
     }));
   }
 }

@@ -293,15 +293,17 @@ wss.on('connection', socket => {
     // console.log(`Message from a client: ${message}`)
     const data = JSON.parse(message.toString())
     switch (data.eventName) {
-      case 'user-join':
+      case 'userJoin':
         const id = uuid()
         game.addPlayer(new Player(socket, data.username, id))
-        send(socket, 'uuid-res', { id: id })
+        send(socket, 'idRes', { id: id })
+        const lis = Array.from(game.players, ([key, value]) => value.username)
+        game.broadcast('lobbyUpd', { usernames: lis })
         console.log(`User ${data.username} joined`)
         break
-      case 'lobby-req':
+      case 'lobbyReq':
         const li = Array.from(game.players, ([key, value]) => value.username)
-        send(socket, 'lobby-res', { users: li })
+        send(socket, 'lobbyUpd', { usernames: li })
         break
       case 'game-start-req':
         game.start()
