@@ -2,6 +2,7 @@ import 'source-map-support/register'
 
 import WebSocket = require('ws')
 import express = require('express')
+
 import uuid = require('uuid/v1')
 
 const questions = require('./cities.json').questionSet
@@ -10,6 +11,16 @@ const GameState = {
   LOBBY: 1,
   BATTLE: 2,
   WAIT: 3
+}
+
+enum SCREENS {
+  SPLASH = 0,
+  LOBBY,
+  BATTLE,
+  BLESSED,
+  LOST,
+  VICTORY,
+  WAIT
 }
 
 function send(socket: WebSocket, eventName: string, payload: any) {
@@ -268,24 +279,6 @@ const app = express()
 // adminApp.listen(5000)
 
 const wss = new WebSocket.Server({ server: app.listen(8080) })
-// const questions = [
-//   {
-//     question: `What is Mr. Cook's first name?`,
-//     choices: [
-//       'Quentin', 'Darrin', 'Cameron', 'Travis Scott'
-//     ],
-//     answer: 1,
-//     duration: 10000
-//   },
-//   {
-//     question: "What org did Kampy play for?",
-//     choices: [
-//       'FaZe', 'Optic', 'BLMS', 'Liquid'
-//     ],
-//     answer: 0,
-//     duration: 10000
-//   }
-// ]
 const game = new Game(questions, 20000)
 
 wss.on('connection', socket => {
@@ -297,6 +290,7 @@ wss.on('connection', socket => {
         const id = uuid()
         game.addPlayer(new Player(socket, data.username, id))
         send(socket, 'idRes', { id: id })
+        send(socket, 'screenChange', { screen: SCREENS.LOBBY })
         const lis = Array.from(game.players, ([key, value]) => value.username)
         game.broadcast('lobbyUpd', { usernames: lis })
         console.log(`User ${data.username} joined`)

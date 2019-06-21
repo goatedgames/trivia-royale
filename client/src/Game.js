@@ -6,7 +6,12 @@ import WS from './net';
 
 const SCREENS = {
   SPLASH: 0,
-  LOBBY: 1
+  LOBBY: 1,
+  BATTLE: 2,
+  BLESSED: 3,
+  LOST: 4,
+  VICTORY: 5,
+  WAIT: 6
 }
 
 class Game extends React.Component {
@@ -19,9 +24,9 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    WS.onEvent('idRes', (data) => {
+    WS.onEvent('screenChange', (data) => {
       this.setState({
-        screen: SCREENS.LOBBY
+        screen: data.screen
       });
     });
   }
@@ -36,8 +41,16 @@ class Game extends React.Component {
         return <Splash onEnter={this.onUsernameSubmit}/>;
       case SCREENS.LOBBY:
         return <Lobby />;
-      default:
+      case SCREENS.BATTLE:
+        return <Battle />;
+      case SCREENS.VICTORY:
         return <Victory />;
+      case SCREENS.LOST:
+        return <Lost />;
+      case SCREENS.WAIT:
+        return <Wait />;
+      default:
+        return <Wait />;
     }
 
     //return <Splash onEnter={this.onUsernameSubmit}/>;
