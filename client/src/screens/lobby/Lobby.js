@@ -22,6 +22,7 @@ class Lobby extends React.Component {
   render() {
     return (
       <div>
+        <button onClick={() => WS.send('game-start-req', {})}>start game</button>
         <h1 className="App">Players</h1>
         <UserList usernames={this.state.usernames}/>
       </div>

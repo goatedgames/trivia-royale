@@ -175,7 +175,7 @@ class Game {
   }
 
   start() {
-    this.broadcast('game-start', {})
+    this.broadcast('screenChange', { screen: SCREENS.BATTLE })
   }
 
   end() {
@@ -303,8 +303,15 @@ wss.on('connection', socket => {
         game.start()
         game.startRound()
         break
-      case 'round-res':
-        game.handleAnswerRes(data.user.id, data.idx)
+      case 'QReq':
+        send(socket, 'newQ', {
+          q: game.currentQ.question,
+          choices: game.currentQ.choices,
+          url: game.currentQ.imgURL
+        })
+        break
+      case 'ans':
+        game.handleAnswerRes(data.user.id, data.i)
         break
       case 'admin-start-game':
         game.start()
