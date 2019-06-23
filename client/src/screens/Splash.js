@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../App.css'
+import {Helmet} from 'react-helmet';
 
+const color = {navy:'#33658A',sky:'#86BBD8',bean:'#758E4F',sunflower:'#F6AE2D',oranje:'#F26219'};
 class Splash extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,10 @@ class Splash extends React.Component {
   render() {
     return (
       <div className="App">
+        <Helmet>
+          <title>Trivia Royale</title>
+          <style>{'body { background-color: #86BBD8; }'}</style>
+        </Helmet>
         <h1>Trivia Royale</h1>
         <p>What would you like to be called?</p>
         <form onSubmit={this.handleSubmit}>
