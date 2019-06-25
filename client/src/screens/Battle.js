@@ -26,7 +26,7 @@ class Battle extends React.Component {
 
     this.state = {
       question: 'What is my best friend\'s name?',
-      choices: ['bob', 'fred', 'joe', 'sally'],
+      choices: ['bob the coolest man on the planet0', 'fred to coolest friend in the universe', 'joe the wise wizard', 'sally the realest girl in thw world joe the wise wizardjoe the wise wizardjoe the wise wizard'],
       imgURL: 'https://cdn.arstechnica.net/wp-content/uploads/2014/11/2014-11-26_00002.jpg'
     }
     this.createGrid = this.createGrid.bind(this);
@@ -68,7 +68,10 @@ class Battle extends React.Component {
         </header>
         <section>
           <nav>
-            myName
+            <ul>
+              <li>myName</li>
+              <li>myLives</li>
+            </ul>
           </nav>
           <article>
 {/*               <Row>
@@ -92,7 +95,10 @@ class Battle extends React.Component {
               </Container>
           </article>
           <nav>
-            enemyName
+            <ul>
+              <li>enemyName</li>
+              <li>enemyLives</li>
+            </ul>
           </nav>
         </section>
         <footer>
