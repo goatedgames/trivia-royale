@@ -34,7 +34,6 @@ class Lobby extends React.Component {
           <style>{'body { background-color: #86BBD8; }'}</style>
         </Helmet>
         <h1 className="title">Players</h1>
-        <button onClick={() => WS.send('startReq', {})}>start game</button>
         <div>
           <UserList usernames={this.state.usernames} />
         </div>

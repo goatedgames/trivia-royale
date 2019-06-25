@@ -12,3 +12,7 @@ const game = new Game(ws, questionSet)
 
 app.use(express.static(__dirname + './../../../client/build/'))
 // app.listen(3000)
+
+// const hostApp = express()
+// hostApp.use(express.static(__dirname + './../admin'))
+// hostApp.listen(7000)
