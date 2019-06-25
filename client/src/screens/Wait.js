@@ -6,7 +6,12 @@ class Wait extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { reason: '' };
+    this.timer = 0;
+
+    this.state = { 
+      reason: '',
+      timeLeft: 5
+    };
   }
 
   componentDidMount() {
@@ -16,10 +21,26 @@ class Wait extends React.Component {
       });
     });
     WS.send('reasonReq');
+
+    if (this.timer === 0 && this.state.timeLeft > 0) {
+      this.timer = setInterval(() => this.countdown(), 1000);
+    }
   }
 
   componentWillUnmount() {
     WS.remove('reasonRes');
+  }
+
+  countdown() {
+    const newTime = this.state.timeLeft - 1;
+    this.setState({
+      timeLeft: newTime
+    });
+
+    if (newTime === 0) {
+      clearInterval(this.timer);
+      this.timer = 0;
+    }
   }
 
   render() {
@@ -29,7 +50,7 @@ class Wait extends React.Component {
           <title>Rest Up, Warrior</title>
           <style>{'body { background-color: #86BBD8; }'}</style>
         </Helmet>
-        <h1>timeLeft</h1>
+        <h1>{this.state.timeLeft}</h1>
         <h2>{this.state.reason}</h2>
         <p>Prepare for your next endeavor</p>
         <img src="https://i.kym-cdn.com/photos/images/original/001/248/330/675.jpg" alt="ResidentSleep"/>

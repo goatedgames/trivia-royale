@@ -5,7 +5,7 @@
     "questions": [
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/c4f6b515-9d9e-4185-b2e2-dc15a3d0b49c",
         "choices": [
           "Athens",
@@ -19,7 +19,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/03501d3f-32d8-4304-81e9-563d94edcbdc",
         "choices": [
           "Tokyo",
@@ -33,7 +33,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/f015f56e-5e66-4df4-ab77-bea622e36aba",
         "choices": [
           "Paris",
@@ -47,7 +47,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/c7e827b9-bccb-41a7-a281-1f3f38336109",
         "choices": [
           "Nice",
@@ -61,7 +61,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/e18077a0-fcee-4584-af2c-a37661102fbb",
         "choices": [
           "Jerusalem",
@@ -75,7 +75,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/c896e5ef-7125-4930-a588-b74540292ad4",
         "choices": [
           "Athens",
@@ -89,7 +89,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/22bba872-0bb2-4766-9efd-b4d86c0883cf",
         "choices": [
           "Florence",
@@ -103,7 +103,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/0244ef4e-5d87-41d6-a7c4-4cb7bb89638d",
         "choices": [
           "Los Angeles",
@@ -117,7 +117,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/c598c113-83eb-4a1b-a901-34f72d27170d",
         "choices": [
           "Moscow",
@@ -131,7 +131,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/0fa6e11d-7ddc-41a5-aa9e-3756b0fa02ef",
         "choices": [
           "Chicago",
@@ -145,7 +145,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/7d5b89ba-15a6-4ad6-8d3e-727b977869a1",
         "choices": [
           "Florence",
@@ -159,7 +159,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/60fe4cb9-1dac-4516-9592-4edb15b3faef",
         "choices": [
           "Canberra",
@@ -173,7 +173,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/7392d190-b03a-4ce7-bb63-8a84f249c796",
         "choices": [
           "Shanghai",
@@ -187,7 +187,7 @@
       },
       {
         "question": "What city is this?",
-        "timeLimit": "20 sec",
+        "timeLimit": 10,
         "imgURL": "https://images-cdn.kahoot.it/d22d21a9-5978-41c7-91fa-9f28a5ba99cb",
         "choices": [
           "Bangkok",

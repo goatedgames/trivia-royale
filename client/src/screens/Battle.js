@@ -7,10 +7,13 @@ class Battle extends React.Component {
   constructor(props) {
     super(props);
 
+    this.timer = 0;
+
     this.state = {
       question: '',
       choices: ['bob', 'fred', 'joe', 'sally'],
       imgURL: '',
+      timeLeft: 5,
       myName: '',
       myLives: 0,
       oppoName: '',
@@ -23,8 +26,13 @@ class Battle extends React.Component {
       this.setState({
         question: data.q,
         choices: data.choices,
-        imgURL: data.url
+        imgURL: data.url,
+        timeLeft: data.timeLimit
       });
+      console.log(data.timeLeft);
+
+      // Could desync if request takes >1 seconds
+      this.timer = setInterval(() => this.countdown(), 1000);
     });
     WS.onEvent('matchRes', (data) => {
       this.setState({
@@ -38,9 +46,24 @@ class Battle extends React.Component {
     WS.send('matchReq', {});
   }
 
+  countdown() {
+    const newTime = this.state.timeLeft - 1;
+    this.setState({
+      timeLeft: newTime
+    });
+
+    if (newTime === 0) {
+      clearInterval(this.timer);
+      this.timer = 0;
+    }
+  }
+
   componentWillUnmount() {
     WS.remove('newQ');
     WS.remove('matchRes');
+    if (this.timer !== 0) {
+      clearInterval(this.timer);
+    }
   }
 
   onClick(index) {
@@ -85,7 +108,7 @@ class Battle extends React.Component {
           </nav>
         </section>
         <footer>
-          questionTime
+          {this.state.timeLeft}
         </footer>
       </div>
     );

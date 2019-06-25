@@ -56,7 +56,8 @@ class Game {
         this.ws.send(socket, 'newQ', {
             q: this.currentQ.question,
             choices: this.currentQ.choices,
-            url: this.currentQ.imgURL
+            url: this.currentQ.imgURL,
+            timeLimit: this.currentQ.timeLimit
         })
     }
 
@@ -148,7 +149,7 @@ class Game {
         }
 
         this.broadcast('screenChange', { screen: Screen.BATTLE })
-        setTimeout(this.endRound, 5000)
+        setTimeout(this.endRound, this.currentQ.timeLimit * 1000)
     }
 
     private endRound = () => {
