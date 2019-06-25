@@ -1,6 +1,6 @@
 export default class WS {
   static init(url) {
-    this.handlers = {};
+    this.handlers = new Map();
     this.key = '';
     this.ws = new WebSocket(url);
     this.ws.onopen = () => {
@@ -11,11 +11,8 @@ export default class WS {
     }
     this.ws.onmessage = (msg) => {
       const data = JSON.parse(msg.data);
-      if (data.eventName in this.handlers) {
-        const subs = this.handlers[data.eventName];
-        for (let i = 0; i < subs.length; i++) {
-          subs[i](data);
-        }
+      if (this.handlers.has(data.eventName)) {
+        this.handlers.get(data.eventName)(data)
       }
     }
 
@@ -25,11 +22,12 @@ export default class WS {
   }
 
   static onEvent(eventName, handler) {
-    if (!(eventName in this.handlers)) {
-      this.handlers[eventName] = [];
-    }
-    this.handlers[eventName].push(handler);
+    this.handlers.set(eventName, handler)
     return this;
+  }
+
+  static remove(eventName) {
+    this.handlers.delete(eventName)
   }
 
   static send(eventName, payload) {

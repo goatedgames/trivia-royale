@@ -24,6 +24,10 @@ class Battle extends React.Component {
     WS.send('QReq', {});
   }
 
+  componentWillUnmount() {
+    WS.remove('newQ')
+  }
+
   onClick(index) {
     WS.send('ans', { i: index });
   }

@@ -19,6 +19,10 @@ class Lobby extends React.Component {
     WS.send('lobbyReq', {});
   }
 
+  componentWillUnmount() {
+    WS.remove('lobbyUpd')
+  }
+
   render() {
     return (
       <div>

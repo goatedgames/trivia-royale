@@ -63,7 +63,26 @@ class Game {
     }
 
     private start = () => {
+        this.startRound()
+    }
+
+    private end = () => {
+        this.broadcast('screenChange', { screen: Screen.SPLASH })
+    }
+
+    private startRound = () => {
         this.broadcast('screenChange', { screen: Screen.BATTLE })
+        setTimeout(this.endRound, 5000)
+    }
+
+    private endRound = () => {
+        this.broadcast('screenChange', { screen: Screen.WAIT })
+        this.questionIdx++
+        if (this.questionIdx >= this.questionSet.questions.length) {
+            this.end()
+        } else {
+            setTimeout(this.startRound, 5000)
+        }
     }
 
     private broadcast(eventName: string, payload: object): void {
