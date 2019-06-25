@@ -1,20 +1,31 @@
 import uuid from 'uuid/v1'
 
 import { Player } from "./player"
-import { WSHandler } from "./wshandler"
+import { Question, QuestionSet } from "./questionSet"
+import { WSHandler } from "./wsHandler"
 import { Screen } from "./screen"
 import WebSocket from 'ws'
 
 class Game {
     players: Map<string, Player>
     ws: WSHandler
+    questionSet: QuestionSet
+    questionIdx: number
 
-    constructor(ws: WSHandler) {
+    constructor(ws: WSHandler, questionSet: any) {
         this.players = new Map()
+        this.questionSet = questionSet
+        this.questionIdx = 0
+
         this.ws = ws
         this.ws.on('userJoin', this.handleUserJoin)
         this.ws.on('lobbyReq', this.lobbyResponse)
-        // this.ws.on('QReq', (data) => this.questionResponse(data))
+        this.ws.on('QReq', this.questionResponse)
+        this.ws.on('startReq', this.start)
+    }
+
+    private get currentQ(): Question {
+        return this.questionSet.questions[this.questionIdx]
     }
 
     private handleUserJoin = (data: any, socket: WebSocket) => {
@@ -34,8 +45,16 @@ class Game {
         this.ws.send(socket, 'lobbyUpd', { usernames: usernames })
     }
 
-    private questionResponse(data: any): void {
+    private questionResponse = (data: any, socket: WebSocket) => {
+        this.ws.send(socket, 'newQ', {
+            q: this.currentQ.question,
+            choices: this.currentQ.choices,
+            url: this.currentQ.imgURL
+        })
+    }
 
+    private start = () => {
+        this.broadcast('screenChange', { screen: Screen.BATTLE })
     }
 
     private broadcast(eventName: string, payload: object): void {

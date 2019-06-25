@@ -2,7 +2,7 @@
     "gameTitle": "Guess the City",
     "description": "Watch the pictures and guess the #city ! See how well you can recognize the different #cities ! #geography #gifreveal #studio",
     "titleImg": "https://images-cdn.kahoot.it/3feceab5-a862-4abe-8aa6-bad04d2689d7",
-    "questionSet": [
+    "questions": [
       {
         "question": "What city is this?",
         "timeLimit": "20 sec",

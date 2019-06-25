@@ -8,3 +8,4 @@
 | QReq         | client |                                           | Results in newQ                                |
 | newQ         | server | q: string, choices: [string], url: string |                                                |
 | ans          | client | i: int                                    | On client answer to newQ                       |
+| startReq     | host   |                                           |                                                |
