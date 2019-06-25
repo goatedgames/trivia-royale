@@ -9,3 +9,7 @@
 | newQ         | server | q: string, choices: [string], url: string |                                                |
 | ans          | client | i: int                                    | On client answer to newQ                       |
 | startReq     | host   |                                           |                                                |
+| livesReq     | client |                                           |                                                |
+| livesRes     | server | lives: int                                | On response to livesReq                        |
+| reasonReq    | client |                                           |                                                |
+| reasonRes    | server | msg: string                               | On response to reasonReq                       |

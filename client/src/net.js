@@ -16,7 +16,7 @@ export default class WS {
       }
     }
 
-    this.onEvent('uuid-res', (data) => {
+    this.onEvent('idRes', (data) => {
       this.key = data.id;
     });
   }
