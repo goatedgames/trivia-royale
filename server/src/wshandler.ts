@@ -1,7 +1,7 @@
-import WebSocket = require('ws')
-import express = require('express')
+import WebSocket from 'ws'
+import express from 'express'
 
-type HandlerFunction = (data: any) => void
+type HandlerFunction = (data: any, socket: WebSocket) => void
 
 class WSHandler {
     server: WebSocket.Server
@@ -15,8 +15,7 @@ class WSHandler {
                 const data = JSON.parse(msg.toString())
                 if (this.handlers.has(data.eventName)) {
                     const f = this.handlers.get(data.eventName)
-                    data.socket = socket
-                    f(data)
+                    f(data, socket)
                 }
             })
         })

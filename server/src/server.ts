@@ -1,6 +1,6 @@
 import 'source-map-support/register'
 
-import express = require('express')
+import express from 'express'
 
 import { Game } from './game'
 import { WSHandler } from './wshandler'
