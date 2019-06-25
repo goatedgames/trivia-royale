@@ -137,7 +137,8 @@ class Game {
 
         // Setup matches
         this.matches.clear()
-        const ids = Array.from(this.players, ([k, v]) => k)
+        let ids = Array.from(this.players, ([k, v]) => k)
+        ids = ids.filter((id) => !this.players.get(id).eliminated)
         utils.shuffle(ids)
         for (let i = 0; i < ids.length; i += 2) {
             const arr = ids.slice(i, i + 2)
