@@ -7,5 +7,8 @@ import { WSHandler } from './wsHandler'
 import questionSet from '../cities.json'
 
 const app = express()
-const ws = new WSHandler(8080, app)
+const ws = new WSHandler(3000, app)
 const game = new Game(ws, questionSet)
+
+app.use(express.static(__dirname + './../../../client/build/'))
+// app.listen(3000)

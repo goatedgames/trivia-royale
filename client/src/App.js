@@ -5,7 +5,10 @@ import './App.css';
 import Game from './Game'
 
 import WS from './net';
-WS.init('ws://localhost:8080');
+
+const host = window.location.origin.replace(/^http/, 'ws')
+// WS.init('ws://localhost:8080');
+WS.init(host)
 
 function App() {
   return <Game />;
