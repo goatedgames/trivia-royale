@@ -29,15 +29,14 @@ class Splash extends React.Component {
   }
 
   render() {
-    const splashStyle = {
-      position: 'absolute', 
-      left: '50%', 
+    const positioning = {
+      position: 'absolute',
+      left: '50%',
       top: '45%',
       transform: 'translate(-50%, -50%)'
     };
-
     return (
-      <div className="App" style={splashStyle}>
+      <div className="App" style={positioning}>
         <Helmet>
           <title>Trivia Royale</title>
           <style>{'body { background-color: #86BBD8; }'}</style>

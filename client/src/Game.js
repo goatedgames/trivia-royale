@@ -22,9 +22,9 @@ class Game extends React.Component {
   }
 
   render() {
-    return <Splash onEnter={this.onUsernameSubmit}/>;
+    //return <Splash onEnter={this.onUsernameSubmit}/>;
     //return <Lobby />;
-    //return <Battle />;
+    return <Battle />;
     //return <Wait />;
     //return <Victory />;
     //return <Lost />;
