@@ -19,8 +19,9 @@ class Game {
 
         this.ws = ws
         this.ws.on('userJoin', this.handleUserJoin)
-        this.ws.on('lobbyReq', this.lobbyResponse)
-        this.ws.on('QReq', this.questionResponse)
+        this.ws.on('lobbyReq', this.handleLobbyRequest)
+        this.ws.on('QReq', this.handleQuestionRequest)
+        this.ws.on('ans', this.handleAnswer)
         this.ws.on('startReq', this.start)
     }
 
@@ -40,17 +41,25 @@ class Game {
         console.log(`User ${data.username} joined`)
     }
 
-    private lobbyResponse = (data: any, socket: WebSocket) => {
+    private handleLobbyRequest = (data: any, socket: WebSocket) => {
         const usernames = Array.from(this.players, ([, player]) => player.username)
         this.ws.send(socket, 'lobbyUpd', { usernames: usernames })
     }
 
-    private questionResponse = (data: any, socket: WebSocket) => {
+    private handleQuestionRequest = (data: any, socket: WebSocket) => {
         this.ws.send(socket, 'newQ', {
             q: this.currentQ.question,
             choices: this.currentQ.choices,
             url: this.currentQ.imgURL
         })
+    }
+
+    private handleAnswer = (data: any, socket: WebSocket) => {
+        if (this.currentQ.correct.includes(data.i + 1)) {
+            this.ws.send(socket, 'screenChange', { screen: Screen.VICTORY })
+        } else {
+            this.ws.send(socket, 'screenChange', { screen: Screen.LOST })
+        }
     }
 
     private start = () => {
