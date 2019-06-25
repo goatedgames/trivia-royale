@@ -9,7 +9,11 @@ class Battle extends React.Component {
     this.state = {
       question: '',
       choices: ['bob', 'fred', 'joe', 'sally'],
-      imgURL: ''
+      imgURL: '',
+      myName: '',
+      myLives: 0,
+      oppoName: '',
+      oppoLives: 0
     }
   }
 
@@ -21,11 +25,21 @@ class Battle extends React.Component {
         imgURL: data.url
       });
     });
+    WS.onEvent('matchRes', (data) => {
+      this.setState({
+        myName: data.myName,
+        myLives: data.myLives,
+        oppoName: data.oppoName,
+        oppoLives: data.oppoLives
+      });
+    });
     WS.send('QReq', {});
+    WS.send('matchReq', {});
   }
 
   componentWillUnmount() {
-    WS.remove('newQ')
+    WS.remove('newQ');
+    WS.remove('matchRes');
   }
 
   onClick(index) {
@@ -35,8 +49,8 @@ class Battle extends React.Component {
   render() {
     return (
       <div>
-        <h2>myName</h2>
-        <h2>enemyName</h2>
+        <h2>{this.state.myName}: {this.state.myLives} lives</h2>
+        <h2>{this.state.oppoName}: {this.state.oppoLives} lives</h2>
         <h1>{this.state.question}</h1>
         <h2>questionTime</h2>
         <img src={this.state.imgURL} />

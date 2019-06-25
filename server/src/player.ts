@@ -7,6 +7,7 @@ class Player {
     lives: number
     reason: string
     answered: boolean
+    eliminated: boolean
 
     constructor(socket: WebSocket, username: string, id: string) {
         this.socket  = socket
@@ -14,6 +15,7 @@ class Player {
         this.id = id
         this.lives = 3
         this.reason = ''
+        this.eliminated = false
     }
 }
 
