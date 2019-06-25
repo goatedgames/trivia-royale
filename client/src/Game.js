@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Splash, Lobby, Battle, Wait, Victory, Lost} from './screens/index';
+import { Splash, Lobby, Battle, Wait, Victory, Lost } from './screens/index';
 
 import WS from './net';
 
@@ -38,7 +38,7 @@ class Game extends React.Component {
   render() {
     switch (this.state.screen) {
       case SCREENS.SPLASH:
-        return <Splash onEnter={this.onUsernameSubmit}/>;
+        return <Splash onEnter={this.onUsernameSubmit} />;
       case SCREENS.LOBBY:
         return <Lobby />;
       case SCREENS.BATTLE:
@@ -52,13 +52,6 @@ class Game extends React.Component {
       default:
         return <Wait />;
     }
-
-    //return <Splash onEnter={this.onUsernameSubmit}/>;
-    // return <Lobby />;
-    // return <Battle />;
-    // return <Wait />;
-    // return <Victory />;
-    // return <Lost />;
   }
 }
 

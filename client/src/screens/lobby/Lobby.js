@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Helmet } from 'react-helmet'
 import UserList from './UserList';
 import WS from '../../net';
+import { Container, Row } from 'react-bootstrap';
+import './Styles.css';
 
 class Lobby extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = { usernames: [] };
   }
 
@@ -25,10 +28,16 @@ class Lobby extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
+        <Helmet>
+          <title>Trivia Royale</title>
+          <style>{'body { background-color: #86BBD8; }'}</style>
+        </Helmet>
+        <h1 className="title">Players</h1>
         <button onClick={() => WS.send('startReq', {})}>start game</button>
-        <h1 className="App">Players</h1>
-        <UserList usernames={this.state.usernames}/>
+        <div>
+          <UserList usernames={this.state.usernames} />
+        </div>
       </div>
     )
   }

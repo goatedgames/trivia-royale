@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import WS from '../net';
 
 class Wait extends React.Component {
@@ -24,6 +25,10 @@ class Wait extends React.Component {
   render() {
     return (
       <div className="App">
+        <Helmet>
+          <title>Rest Up, Warrior</title>
+          <style>{'body { background-color: #86BBD8; }'}</style>
+        </Helmet>
         <h1>timeLeft</h1>
         <h2>{this.state.reason}</h2>
         <p>Prepare for your next endeavor</p>
